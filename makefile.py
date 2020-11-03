@@ -1,16 +1,17 @@
 import os
 import zipfile
-import codecs
 
 def outqq(list):
-    write = open('output/' + proj + '_QQInputAndroid_' + ver + '.txt', mode='w+', encoding='utf-16-le')
+    write = open('output/' + proj + '_QQInputAndroid_' + ver + '.txt', mode='w+', encoding='utf_16_le')
+    write.write('\ufeff')
     for line in list:
         parts = line.split(spliter)
         write.write(parts[0] + '=1,' + parts[1])
     write.close()
 
 def outbaidu(list):
-    write = open('output/' + proj + '_BaiduInputAndroid_' + ver + '.ini', mode='w+', encoding='utf-16-le')
+    write = open('output/' + proj + '_BaiduInputAndroid_' + ver + '.ini', mode='w+', encoding='utf_16_le')
+    write.write('\ufeff')
     write.write('[' + title + ']' + '\n')
     for line in list:
         parts = line.split(spliter)
