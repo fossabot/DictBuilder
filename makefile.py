@@ -30,7 +30,7 @@ def outgb(list):
     write.write('# Gboard Dictionary version:1' + '\n')
     for line in list:
         parts = line.split(spliter)
-        write.write(parts[0] + '	' + parts[1] + '	zh-CN	')
+        write.write(parts[0] + '	' + parts[1].strip('\n') + '	zh-CN	\n')
     write.close()
     archive = zipfile.ZipFile('output/' + proj + '_GboardAndroid_' + ver + '.zip', 'w')
     archive.write('dictionary.txt', compress_type=zipfile.ZIP_DEFLATED)
