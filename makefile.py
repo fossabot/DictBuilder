@@ -1,7 +1,7 @@
 import os
 import zipfile
 
-def outqq(list):
+def outqqandroid(list):
     write = open('output/' + proj + '_QQInputAndroid_' + ver + '.txt', mode='w+', encoding='utf_16_le')
     write.write('\ufeff')
     for line in list:
@@ -9,7 +9,15 @@ def outqq(list):
         write.write(parts[0] + '=1,' + parts[1])
     write.close()
 
-def outbaidu(list):
+def outqqpc(list):
+    write = open('output/' + proj + '_QQInputPC_' + ver + '.ini', mode='w+', encoding='utf_16_le')
+    write.write('\ufeff')
+    for line in list:
+        parts = line.split(spliter)
+        write.write(parts[0] + '=1,' + parts[1])
+    write.close()
+
+def outbaiduandroid(list):
     write = open('output/' + proj + '_BaiduInputAndroid_' + ver + '.ini', mode='w+', encoding='utf_16_le')
     write.write('\ufeff')
     write.write('[' + title + ']' + '\n')
@@ -18,14 +26,14 @@ def outbaidu(list):
         write.write(parts[0] + '=0,' + parts[1])
     write.close()
 
-def outsogou(list):
+def outsogoupc(list):
     write = open('output/' + proj + '_SogouPC_' + ver + '.txt', mode='w+', encoding='UTF-8')
     for line in list:
         parts = line.split(spliter)
         write.write(parts[0] + ',1=' + parts[1])
     write.close()
 
-def outgb(list):
+def outgboardandroid(list):
     write = open('dictionary.txt', mode='w+', encoding='UTF-8')
     write.write('# Gboard Dictionary version:1' + '\n')
     for line in list:
@@ -49,7 +57,8 @@ srclines = src.readlines()
 src.close()
 if not os.path.isdir('output'):
     os.mkdir('output')
-outqq(srclines)
-outbaidu(srclines)
-outsogou(srclines)
-outgb(srclines)
+outqqandroid(srclines)
+outqqpc(srclines)
+outbaiduandroid(srclines)
+outsogoupc(srclines)
+outgboardandroid(srclines)
