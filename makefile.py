@@ -45,6 +45,13 @@ def outgboardandroid(list):
     archive.close()
     os.remove('dictionary.txt')
 
+def outconverter(list):
+    write = open('output/convert' + ver + '.txt', mode='w+', encoding='UTF-8')
+    for line in list:
+        parts = line.split(spliter)
+        write.write(parts[0] + ',' + parts[1])
+    write.close()
+
 ver = input('INPUT VERSION NAME:')
 conf = open('buildconfig.txt', encoding='UTF-8')
 source = conf.readline().strip('\n')
@@ -62,3 +69,4 @@ outqqpc(srclines)
 outbaiduandroid(srclines)
 outsogoupc(srclines)
 outgboardandroid(srclines)
+outconverter(srclines)
