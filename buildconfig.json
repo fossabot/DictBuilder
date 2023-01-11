@@ -1,0 +1,7 @@
+[
+  {
+    "source": "source_example.json",
+    "prefix": "TestFlight",
+    "title": "构建测试"
+  }
+]
