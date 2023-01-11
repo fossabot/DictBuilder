@@ -17,10 +17,10 @@
 * Gboard
 * QQ输入法
 
-此外，还会额外构建一个用于在**[深蓝词库转换](https://github.com/studyzy/imewlconverter)**中进行转换的自定义格式txt文件。
+此外，还会额外构建一个用于在 **[深蓝词库转换](https://github.com/studyzy/imewlconverter)** 中进行转换的自定义格式txt文件。
 
 *** 
 我可以用它做什么？
 ---
-如果你想搞一个类似于**[Pboard](https://github.com/MarkussLugia/Pboard)**的自定义词库，不妨试试这个脚本。   
+如果你想搞一个类似于 **[Pboard](https://github.com/MarkussLugia/Pboard)** 的自定义词库，不妨试试这个脚本。   
 配置完毕后，它可以从结构复杂的词库源文件中按需求分类构建出词库文件，并输出到/output文件夹中。
