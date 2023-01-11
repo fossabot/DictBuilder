@@ -70,30 +70,28 @@ if not os.path.isdir('output'):
 
 completed = 0
 for conf in confs:
-    src_file = open(conf["source"], encoding='UTF-8')
-    src = json.load(src_file)
-    src_file.close()
+    src = []
+    if isinstance(conf["source"],list):
+        for source in conf["source"]:
+            src_file = open(source, encoding='UTF-8')
+            src.extend(json.load(src_file))
+            src_file.close()
+    else:
+        src_file = open(conf["source"], encoding='UTF-8')
+        src.extend(json.load(src_file))
+        src_file.close()
+
     line_list = []
     for phrase in src:
         for input in phrase["input"]:
             line_list.append([phrase["phrase"], input])
+
     out_qqinput_android(line_list, conf["prefix"])
     out_qqinput_pc(line_list, conf["prefix"])
     out_baiduinput_android(line_list, conf["prefix"], conf["title"])
     out_sogou_pc(line_list, conf["prefix"])
     out_gboard_android(line_list, conf["prefix"])
     out_converter(line_list, conf["prefix"])
+
     completed += 1
     print(str(completed) + " of " + str(len(confs)) + " task(s) completed")
-
-# src = open(source, encoding='UTF-8')
-# srclines = src.readlines()
-# src.close()
-# if not os.path.isdir('output'):
-#     os.mkdir('output')
-# outqqandroid(srclines)
-# outqqpc(srclines)
-# outbaiduandroid(srclines)
-# outsogoupc(srclines)
-# outgboardandroid(srclines)
-# outconverter(srclines)
