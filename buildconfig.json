@@ -1,7 +1,12 @@
 [
   {
-    "source": "source_example.json",
+    "source": "demo/source_demo1.json",
     "prefix": "TestFlight",
-    "title": "构建测试"
+    "title": "构建测试演示"
+  },
+  {
+    "source": ["demo/source_demo2.json","demo/source_demo3.json"],
+    "prefix": "MergeFiles",
+    "title": "文件合并演示"
   }
 ]
