@@ -43,22 +43,22 @@ def export(dict_list, proj, ver):
     for i in range(len(dict_list)):
         fs.write(offset.to_bytes(4, 'little'))
         line = dict_list[i]
-        offset += 8 + 8 + len(line[1]) * 2 + 2 + len(line[0]) * 2 + 2
+        offset += 8 + 8 + len(line[0]) * 2 + 2 + len(line[1]) * 2 + 2
 
     # phrase content
     for i in range(len(dict_list)):
         fs.write((0x00100010).to_bytes(4, 'little'))  # magic
         line = dict_list[i]
-        hanzi_offset: int = 8 + 8 + len(line[0]) * 2 + 2
+        hanzi_offset: int = 8 + 8 + len(line[1]) * 2 + 2
         fs.write((hanzi_offset).to_bytes(2, 'little'))
         fs.write((0x01).to_bytes(1, 'little'))  # 词条位置
         fs.write((0x06).to_bytes(1, 'little'))  # 不知道
         fs.write((0x00).to_bytes(4, 'little'))  # 不知道
         fs.write((0xE679CD20).to_bytes(4, 'little'))  # 不知道
 
-        fs.write(bytes(line[0], encoding="utf-16-le"))
-        fs.write((0x0000).to_bytes(2, 'little'))
         fs.write(bytes(line[1], encoding="utf-16-le"))
+        fs.write((0x0000).to_bytes(2, 'little'))
+        fs.write(bytes(line[0], encoding="utf-16-le"))
         fs.write((0x0000).to_bytes(2, 'little'))
 
     # set content end
