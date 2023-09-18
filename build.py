@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 
 from dict_modules.baiduinput_android import export as out_baiduinput_android
 from dict_modules.gboard_android import export as out_gboard_android
@@ -22,6 +23,21 @@ print("-----------------")
 
 if not os.path.isdir('output'):
     os.mkdir('output')
+
+else:
+    print("ATTENTION, folder '/output' exists in current location.")
+    print("Proceed to build will overwrite the entire folder,")
+    print("EVERYTHING PREVIOUSLY WITHIN WILL BE LOST.")
+    chk:str = input('Type "yes" to proceed:')
+    chk = chk.lower()
+    if chk == 'yes':
+        print("-----------------")
+        shutil.rmtree('output', True)
+        os.mkdir('output')
+    else: 
+        print("Build aborted.")
+        os.system('pause')
+        os._exit(0)
 
 completed: int = 0
 for conf in confs:
