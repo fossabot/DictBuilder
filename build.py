@@ -3,6 +3,7 @@ import json
 
 from dict_modules.baiduinput_android import export as out_baiduinput_android
 from dict_modules.gboard_android import export as out_gboard_android
+from dict_modules.newmspinyin_pc import export as out_newmspinyin_pc
 from dict_modules.qqinput_android import export as out_qqinput_android
 from dict_modules.qqinput_pc import export as out_qqinput_pc
 from dict_modules.sogouinput_pc import export as out_sogouinput_pc
@@ -36,6 +37,7 @@ for conf in confs:
 
     out_baiduinput_android(dict_list, conf["prefix"], ver, conf["title"])
     out_gboard_android(dict_list, conf["prefix"], ver)
+    out_newmspinyin_pc(dict_list, conf["prefix"], ver)
     out_qqinput_android(dict_list, conf["prefix"], ver)
     out_qqinput_pc(dict_list, conf["prefix"], ver)
     out_sogouinput_pc(dict_list, conf["prefix"], ver)
