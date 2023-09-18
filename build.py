@@ -1,64 +1,12 @@
 import os
 import json
-import zipfile
 
-
-def out_qqinput_android(line_list, proj):
-    write = open('output/' + proj + '_QQInputAndroid_' +
-                 ver + '.txt', mode='w+', encoding='utf_16_le')
-    write.write('\ufeff')
-    for line in line_list:
-        write.write(line[0] + '=1,' + line[1] + '\n')
-    write.close()
-
-
-def out_qqinput_pc(line_list, proj):
-    write = open('output/' + proj + '_QQInputPC_' + ver +
-                 '.ini', mode='w+', encoding='utf_16_le')
-    write.write('\ufeff')
-    for line in line_list:
-        write.write(line[0] + '=1,' + line[1] + '\n')
-    write.close()
-
-
-def out_baiduinput_android(line_list, proj, title):
-    write = open('output/' + proj + '_BaiduInputAndroid_' +
-                 ver + '.ini', mode='w+', encoding='utf_16_le')
-    write.write('\ufeff')
-    write.write('[' + title + ']' + '\n')
-    for line in line_list:
-        write.write(line[0] + '=0,' + line[1] + '\n')
-    write.close()
-
-
-def out_sogou_pc(line_list, proj):
-    write = open('output/' + proj + '_SogouPC_' + ver +
-                 '.txt', mode='w+', encoding='UTF-8')
-    for line in line_list:
-        write.write(line[0] + ',1=' + line[1] + '\n')
-    write.close()
-
-
-def out_gboard_android(line_list, proj):
-    write = open('dictionary.txt', mode='w+', encoding='UTF-8')
-    write.write('# Gboard Dictionary version:1' + '\n')
-    for line in line_list:
-        write.write(line[0] + '	' + line[1] + '	zh-CN	\n')
-    write.close()
-    archive = zipfile.ZipFile(
-        'output/' + proj + '_GboardAndroid_' + ver + '.zip', 'w')
-    archive.write('dictionary.txt', compress_type=zipfile.ZIP_STORED)
-    archive.close()
-    os.remove('dictionary.txt')
-
-
-def out_converter(line_list, proj):
-    write = open('output/' + proj + '_convert_' + ver +
-                 '.txt', mode='w+', encoding='UTF-8')
-    for line in line_list:
-        write.write(line[0] + ',' + line[1] + '\n')
-    write.close()
-
+from dict_modules.baiduinput_android import export as out_baiduinput_android
+from dict_modules.gboard_android import export as out_gboard_android
+from dict_modules.qqinput_android import export as out_qqinput_android
+from dict_modules.qqinput_pc import export as out_qqinput_pc
+from dict_modules.sogouinput_pc import export as out_sogouinput_pc
+from dict_modules.imewlconverter import export as out_imewlconverter
 
 ver = input('INPUT VERSION NAME:')
 conf_file = open('buildconfig.json', encoding='UTF-8')
@@ -81,17 +29,17 @@ for conf in confs:
         src.extend(json.load(src_file))
         src_file.close()
 
-    line_list = []
+    dict_list = []
     for phrase in src:
         for input in phrase["input"]:
-            line_list.append([phrase["phrase"], input])
+            dict_list.append([phrase["phrase"], input])
 
-    out_qqinput_android(line_list, conf["prefix"])
-    out_qqinput_pc(line_list, conf["prefix"])
-    out_baiduinput_android(line_list, conf["prefix"], conf["title"])
-    out_sogou_pc(line_list, conf["prefix"])
-    out_gboard_android(line_list, conf["prefix"])
-    out_converter(line_list, conf["prefix"])
+    out_baiduinput_android(dict_list, conf["prefix"], ver, conf["title"])
+    out_gboard_android(dict_list, conf["prefix"], ver)
+    out_qqinput_android(dict_list, conf["prefix"], ver)
+    out_qqinput_pc(dict_list, conf["prefix"], ver)
+    out_sogouinput_pc(dict_list, conf["prefix"], ver)
+    out_imewlconverter(dict_list, conf["prefix"], ver)
 
     completed += 1
     print(str(completed) + " of " + str(len(confs)) + " task(s) completed")
