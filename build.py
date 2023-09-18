@@ -9,31 +9,49 @@ from dict_modules.qqinput_pc import export as out_qqinput_pc
 from dict_modules.sogouinput_pc import export as out_sogouinput_pc
 from dict_modules.imewlconverter import export as out_imewlconverter
 
-ver = input('INPUT VERSION NAME:')
+print("=================")
+print("   DictBuilder")
+print("=================")
+print("")
+ver = input('Input VERSION NAME:')
 conf_file = open('buildconfig.json', encoding='UTF-8')
 confs = json.load(conf_file)
 conf_file.close()
 
+print("-----------------")
+
 if not os.path.isdir('output'):
     os.mkdir('output')
 
-completed = 0
+completed: int = 0
 for conf in confs:
+    print("Starting task " + str(completed + 1) +
+          " of " + str(len(confs)) + " :")
     src = []
-    if isinstance(conf["source"],list):
+    filecount: int = 0
+    if isinstance(conf["source"], list):
         for source in conf["source"]:
+            filecount += 1
             src_file = open(source, encoding='UTF-8')
             src.extend(json.load(src_file))
             src_file.close()
     else:
+        filecount += 1
         src_file = open(conf["source"], encoding='UTF-8')
         src.extend(json.load(src_file))
         src_file.close()
 
+    print("- Loaded " + str(filecount) + " file(s)")
     dict_list = []
+    phrasecount: int = 0
+    linecount: int = 0
     for phrase in src:
+        phrasecount += 1
         for input in phrase["input"]:
+            linecount += 1
             dict_list.append([phrase["phrase"], input])
+    print("- Loaded " + str(linecount) + " line(s) from " +
+          str(phrasecount) + " phrase(s)")
 
     out_baiduinput_android(dict_list, conf["prefix"], ver, conf["title"])
     out_gboard_android(dict_list, conf["prefix"], ver)
@@ -44,4 +62,8 @@ for conf in confs:
     out_imewlconverter(dict_list, conf["prefix"], ver)
 
     completed += 1
-    print(str(completed) + " of " + str(len(confs)) + " task(s) completed")
+    print("Task " + str(completed) + " of " +
+          str(len(confs)) + " completed")
+    print("-----------------")
+
+os.system('pause')
