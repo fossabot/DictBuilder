@@ -1,4 +1,6 @@
 # DictBuilder
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMarkussLugia%2FDictBuilder.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FMarkussLugia%2FDictBuilder?ref=badge_shield)
+
 用于构建词库的自动化Python脚本。
 
 *** 
@@ -25,3 +27,7 @@
 ---
 如果你想搞一个类似于 **[Pboard](https://github.com/MarkussLugia/Pboard)** 的自定义词库，不妨试试这个脚本。   
 配置完毕后，它可以从结构复杂的词库源文件中按需求分类构建出词库文件，并输出到/output文件夹中。
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMarkussLugia%2FDictBuilder.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMarkussLugia%2FDictBuilder?ref=badge_large)
